@@ -1,6 +1,7 @@
 import importlib
 
 from celery import shared_task
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 
@@ -15,12 +16,12 @@ def single_object_task_wrapper(task_name, object_id, user_id):
     except Exception:
         send_mail('Django Admin Task Failure',
                   'Failure when attempting to run the task %s' % task_name,
-                  'software@debtexplained.com',
+                  settings.DJANGO_CELERY_FORCEFEEDER['NOTIFICATION_ADDRESS'],
                   [user.email])
         raise
     else:
         # Email success message
         send_mail('Django Admin Task Success',
                   'Task complete - %s' % task_name,
-                  'software@debtexplained.com',
+                  settings.DJANGO_CELERY_FORCEFEEDER['NOTIFICATION_ADDRESS'],
                   [user.email])

@@ -2,10 +2,16 @@ import importlib
 
 from django.conf.urls import url
 from django.contrib import admin, messages
-from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
+
+from django import VERSION
+
+if VERSION >= (2, 0):
+    from django.urls import reverse
+else:
+    from django.core.urlresolvers import reverse
 
 from tasks import single_object_task_wrapper
 

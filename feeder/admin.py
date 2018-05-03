@@ -13,7 +13,7 @@ if VERSION >= (2, 0):
 else:
     from django.core.urlresolvers import reverse
 
-from tasks import single_object_task_wrapper
+from .tasks import single_object_task_wrapper
 
 
 class DocumentAdminTasksMixin(admin.ModelAdmin):
